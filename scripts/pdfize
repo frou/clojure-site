@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+set -ue
+
+OUTPUT_DIR_PATH="pdfs"
+
+find content/{about,guides,reference} -name '*.adoc' -print | while read -r ADOC_PATH; do
+	echo "Input:	${ADOC_PATH}"
+
+	PDF_PATH="${OUTPUT_DIR_PATH}/${ADOC_PATH%.adoc}.pdf"
+	echo "Output:	${PDF_PATH}"
+
+	asciidoctor-pdf -o "${PDF_PATH}" "${ADOC_PATH}"
+	echo
+done
